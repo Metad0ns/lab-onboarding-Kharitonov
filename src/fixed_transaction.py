@@ -1,25 +1,25 @@
 def get_balance(user_id):
+    """Заглушка: возвращает текущий баланс пользователя."""
     return 1000
 
 
 def update_balance(user_id, new_balance):
+    """Заглушка: сохраняет новый баланс пользователя."""
     return None
 
 
 def process_transaction(user_id, amount, db_connection):
     status = "pending"
-    balance = get_balance(user_id)
 
-    if amount > 0 and amount <= balance:
+    if amount > 0:
         status = "approved"
+        balance = get_balance(user_id)
         new_balance = balance - amount
         update_balance(user_id, new_balance)
-    else:
-        status = "declined"
 
-    log_entry = f"Transaction finished with status: {status}\n"
+    log_entry = "Transaction finished with status: " + status
 
-    with open("audit_log.txt", "a", encoding="utf-8") as file:
+    with open("audit_log.txt", "w") as file:
         file.write(log_entry)
 
     return status
