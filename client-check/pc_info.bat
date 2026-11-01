@@ -4,7 +4,7 @@ chcp 65001 >nul
 REM ============================================================
 REM Тема: Диагностика клиентского компьютера
 REM Автор: Харитонов
-REM Дата: 26.10.2026
+REM Дата: 29.10.2026
 REM ============================================================
 
 REM --- Путь к отчёту: рядом с pc_info.bat (%~dp0 = папка этого файла) ---
@@ -17,8 +17,7 @@ REM --- Подпрограмма: выводит строку в окно и д�
 setlocal EnableDelayedExpansion
 set "msg=%~1"
 echo(!msg!
-"%REPORT%" echo(!msg!
-
+>>"%REPORT%" echo(!msg!
 endlocal
 exit /b
 
@@ -29,40 +28,33 @@ call :out "         Диагностика компьютера"
 call :out "========================================"
 call :out ""
 
-REM --- Операционная система ---
+REM --- Операционная система (через PowerShell, так как wmic недоступен) ---
 call :out "Операционная система"
 call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`wmic os get Caption /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do call :out "Название: %%b"
-for /f "usebackq delims=" %%x in (`wmic os get Version /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do call :out "Версия: %%b"
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; (Get-CimInstance Win32_OperatingSystem).Caption"`) do call :out "Название: %%x"
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "(Get-CimInstance Win32_OperatingSystem).Version"`) do call :out "Версия: %%x"
 call :out ""
 
 REM --- Процессор ---
 call :out "Процессор"
 call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`wmic cpu get Name /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do call :out "%%b"
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "(Get-CimInstance Win32_Processor | Select-Object -First 1).Name"`) do call :out "%%x"
 call :out ""
 
-REM --- Оперативная память (значения в КБ переводим в ГБ, делим на 1048576) ---
+REM --- Оперативная память (КБ делим на 1MB = 1048576, получаем ГБ) ---
 call :out "Оперативная память"
 call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`wmic os get TotalVisibleMemorySize /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do set "RAM_TOTAL_KB=%%b"
-for /f "usebackq delims=" %%x in (`wmic os get FreePhysicalMemory /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do set "RAM_FREE_KB=%%b"
-set /a RAM_TOTAL_GB=(RAM_TOTAL_KB+524288)/1048576
-set /a RAM_FREE_GB=(RAM_FREE_KB+524288)/1048576
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize/1MB)"`) do set "RAM_TOTAL_GB=%%x"
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory/1MB)"`) do set "RAM_FREE_GB=%%x"
 call :out "Всего памяти: %RAM_TOTAL_GB% ГБ"
 call :out "Свободно памяти: %RAM_FREE_GB% ГБ"
 call :out ""
 
-REM --- Диск C (значения в байтах; set /a не умеет числа больше ~2 ГБ,
-REM     поэтому отрезаем последние 6 цифр и делим на 1073,74 через *10/10737) ---
+REM --- Диск C (байты делим на 1GB = 1073741824, получаем ГБ) ---
 call :out "Диск C"
 call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`wmic logicaldisk where "DeviceID='C:'" get Size /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do set "DISK_SIZE=%%b"
-for /f "usebackq delims=" %%x in (`wmic logicaldisk where "DeviceID='C:'" get FreeSpace /format:list ^| find "="`) do for /f "tokens=1,* delims==" %%a in ("%%x") do set "DISK_FREE=%%b"
-set "SIZE_MB=%DISK_SIZE:~0,-6%"
-set "FREE_MB=%DISK_FREE:~0,-6%"
-set /a DISK_SIZE_GB=SIZE_MB*10/10737
-set /a DISK_FREE_GB=FREE_MB*10/10737
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID=''C:''').Size/1GB)"`) do set "DISK_SIZE_GB=%%x"
+for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID=''C:''').FreeSpace/1GB)"`) do set "DISK_FREE_GB=%%x"
 call :out "Размер диска: %DISK_SIZE_GB% ГБ"
 call :out "Свободно: %DISK_FREE_GB% ГБ"
 call :out ""
@@ -70,8 +62,8 @@ call :out ""
 REM --- Установленные программы (через реестр: 64-битные и 32-битные) ---
 call :out "Установленные программы"
 call :out "----------------------------------------"
-for /f "usebackq tokens=1,2,*" %%a in (`reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" /s ^| findstr /R /C:"^ *DisplayName *REG_"`) do call :out "%%c"
-for /f "usebackq tokens=1,2,*" %%a in (`reg query "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall" /s ^| findstr /R /C:"^ *DisplayName *REG_"`) do call :out "%%c"
+for /f "usebackq tokens=1,2,*" %%a in (`reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" /s ^| findstr /R /C:"^ *DisplayName  *REG_"`) do call :out "%%c"
+for /f "usebackq tokens=1,2,*" %%a in (`reg query "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall" /s ^| findstr /R /C:"^ *DisplayName  *REG_"`) do call :out "%%c"
 call :out ""
 
 REM --- Итог ---
