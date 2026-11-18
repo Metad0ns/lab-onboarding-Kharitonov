@@ -1,72 +1,134 @@
 @echo off
 chcp 65001 >nul
+setlocal DisableDelayedExpansion
+title Аудит клиентского компьютера
 
-REM ============================================================
-REM Тема: Диагностика клиентского компьютера
-REM Автор: Харитонов
-REM Дата: 29.10.2026
-REM ============================================================
+REM Тема: Диагностика и аудит клиентского компьютера. Автор: Харитонов. Дата: 19.11.2026.
+set "report=%~dp0pc_report.txt"
+set "helper=%~dp0pc_audit.ps1"
+set "work=%TEMP%\pc-check-%RANDOM%-%RANDOM%-%RANDOM%"
+set "writeFailed="
+type nul >"%report%"
+if errorlevel 1 (
+    echo Не удалось создать файл отчёта "%report%".
+    pause
+    exit /b 1
+)
 
-REM --- Путь к отчёту: рядом с pc_info.bat (%~dp0 = папка этого файла) ---
-set "REPORT=%~dp0pc_report.txt"
-if exist "%REPORT%" del "%REPORT%"
-goto :main
+REM --- Заголовок и время формирования ---
+call :log "=================================================="
+call :log "Диагностика и аудит клиентского компьютера"
+call :log "Дата и время формирования: %date% %time%"
+call :log "=================================================="
+md "%work%" 2>nul
+if errorlevel 1 (
+    call :log "Не удалось создать временную папку для диагностики."
+    pause
+    exit /b 1
+)
 
-REM --- Подпрограмма: выводит строку в окно и дописывает её в файл отчёта ---
-:out
-setlocal EnableDelayedExpansion
-set "msg=%~1"
-echo(!msg!
->>"%REPORT%" echo(!msg!
-endlocal
-exit /b
+REM --- Сбор данных и сброс переменных перед чтением результатов CIM ---
+call :log ""
+call :log "Собираются сведения об ОС, процессоре, памяти и диске C…"
+for %%K in (osName osVersion cpuName ramTotal ramFree diskSize diskFree) do set "%%K="
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%helper%" -Mode Hardware -WorkDir "%work%"
+if exist "%work%\hardware.txt" for /f "usebackq tokens=1,* delims==" %%A in ("%work%\hardware.txt") do set "%%A=%%B"
 
-:main
-REM --- Заголовок ---
-call :out "========================================"
-call :out "         Диагностика компьютера"
-call :out "========================================"
-call :out ""
-
-REM --- Операционная система (через PowerShell, так как wmic недоступен) ---
-call :out "Операционная система"
-call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; (Get-CimInstance Win32_OperatingSystem).Caption"`) do call :out "Название: %%x"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "(Get-CimInstance Win32_OperatingSystem).Version"`) do call :out "Версия: %%x"
-call :out ""
+REM --- Операционная система ---
+call :section "Операционная система"
+call :field osName "Название"
+call :field osVersion "Версия"
 
 REM --- Процессор ---
-call :out "Процессор"
-call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "(Get-CimInstance Win32_Processor | Select-Object -First 1).Name"`) do call :out "%%x"
-call :out ""
+call :section "Процессор"
+call :field cpuName "Название"
 
-REM --- Оперативная память (КБ делим на 1MB = 1048576, получаем ГБ) ---
-call :out "Оперативная память"
-call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize/1MB)"`) do set "RAM_TOTAL_GB=%%x"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory/1MB)"`) do set "RAM_FREE_GB=%%x"
-call :out "Всего памяти: %RAM_TOTAL_GB% ГБ"
-call :out "Свободно памяти: %RAM_FREE_GB% ГБ"
-call :out ""
+REM --- Оперативная память ---
+call :section "Оперативная память"
+call :field ramTotal "Всего памяти" " ГБ"
+call :field ramFree "Свободно памяти" " ГБ"
 
-REM --- Диск C (байты делим на 1GB = 1073741824, получаем ГБ) ---
-call :out "Диск C"
-call :out "----------------------------------------"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID=''C:''').Size/1GB)"`) do set "DISK_SIZE_GB=%%x"
-for /f "usebackq delims=" %%x in (`powershell -NoProfile -Command "[math]::Round((Get-CimInstance Win32_LogicalDisk -Filter 'DeviceID=''C:''').FreeSpace/1GB)"`) do set "DISK_FREE_GB=%%x"
-call :out "Размер диска: %DISK_SIZE_GB% ГБ"
-call :out "Свободно: %DISK_FREE_GB% ГБ"
-call :out ""
+REM --- Диск C ---
+call :section "Диск C"
+call :field diskSize "Размер диска" " ГБ"
+call :field diskFree "Свободно" " ГБ"
 
-REM --- Установленные программы (через реестр: 64-битные и 32-битные) ---
-call :out "Установленные программы"
-call :out "----------------------------------------"
-for /f "usebackq tokens=1,2,*" %%a in (`reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" /s ^| findstr /R /C:"^ *DisplayName  *REG_"`) do call :out "%%c"
-for /f "usebackq tokens=1,2,*" %%a in (`reg query "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall" /s ^| findstr /R /C:"^ *DisplayName  *REG_"`) do call :out "%%c"
-call :out ""
+REM --- Программы и рекомендации по списку названий из реестра ---
+call :section "Установленные программы"
+call :log "Выполняется опрос 64- и 32-разрядных разделов реестра…"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%helper%" -Mode Inventory -WorkDir "%work%"
+if not exist "%work%\apps_list.txt" (
+    call :log "Не удалось получить список программ."
+) else (
+    for /f "usebackq eol=| delims=" %%L in ("%work%\apps_list.txt") do (
+        set "line=%%L"
+        call :writeLine
+    )
+)
+if exist "%work%\inventory_warning.txt" for /f "usebackq delims=" %%L in ("%work%\inventory_warning.txt") do (
+    set "line=%%L"
+    call :writeLine
+)
 
-REM --- Итог ---
-call :out "========================================"
-call :out "Отчёт сохранён"
+call :log ""
+call :log "Выполняется сверка списка программ с офисным эталоном…"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%helper%" -Mode Audit -WorkDir "%work%"
+if not exist "%work%\audit.txt" (
+    call :log "Не удалось сформировать результаты проверки программ."
+) else (
+    REM Номера строк сохраняют пустые строки при чтении через for /f.
+    for /f "usebackq tokens=1,* delims=|" %%A in ("%work%\audit.txt") do (
+        set "line=%%B"
+        call :writeLine
+    )
+)
+
+REM --- Завершение и очистка временных результатов ---
+del /q "%work%\hardware.txt" "%work%\apps_list.txt" "%work%\inventory_warning.txt" "%work%\audit.txt" 2>nul
+rd "%work%" 2>nul
+call :log "=================================================="
+set "line=Путь к отчёту: %report%"
+call :writeLine
+if defined writeFailed (
+    echo Не удалось полностью записать отчёт.
+) else (
+    call :log "Отчёт сохранён"
+    if defined writeFailed echo Не удалось полностью записать отчёт.
+)
 pause
+if defined writeFailed exit /b 1
+exit /b 0
+
+REM --- Поле с подстановкой понятного сообщения при пустом результате ---
+:field
+set "line=%~2: данные получить не удалось"
+if defined %~1 (
+    setlocal EnableDelayedExpansion
+    set "line=%~2: !%~1!%~3"
+    call :writeLine
+    if defined writeFailed (endlocal & set "writeFailed=1") else endlocal
+) else (
+    call :writeLine
+)
+exit /b
+
+:section
+call :log ""
+call :log "%~1"
+call :log "--------------------------------------------------"
+exit /b
+
+REM --- Вывод в окно и отчёт. Данные реестра минуют повторный разбор CALL ---
+:log
+set "line=%~1"
+:writeLine
+setlocal EnableDelayedExpansion
+echo(!line!
+>>"!report!" echo(!line!
+if errorlevel 1 (
+    endlocal
+    set "writeFailed=1"
+    exit /b 1
+)
+endlocal
+exit /b 0
