@@ -1,0 +1,248 @@
+==================================================
+Диагностика и аудит клиентского компьютера
+Дата и время формирования: 19.11.2026  2:04:45,39
+==================================================
+
+Собираются сведения об ОС, процессоре, памяти и диске C…
+
+Операционная система
+--------------------------------------------------
+Название: Microsoft Windows 11 Pro
+Версия: 10.0.26300
+
+Процессор
+--------------------------------------------------
+Название: Intel(R) Core(TM) i7-10700K CPU @ 3.80GHz
+
+Оперативная память
+--------------------------------------------------
+Всего памяти: 15.9 ГБ
+Свободно памяти: 7.3 ГБ
+
+Диск C
+--------------------------------------------------
+Размер диска: 475.9 ГБ
+Свободно: 40.4 ГБ
+
+Установленные программы
+--------------------------------------------------
+Выполняется опрос 64- и 32-разрядных разделов реестра…
+@BIOS
+7-Zip 24.09 (x64 edition)
+AnyDesk
+AORUS ENGINE
+AutoHotkey 1.1.37.02
+Cisco Secure Client - AnyConnect VPN
+Counter-Strike 2
+Cult of the Lamb
+Deadlock
+DisplayCAL
+Dota 2
+EA app
+ENE_AIC_Marvell_HAL
+ENE_DRAM_RGB_AIO
+ENE_EHD_M2_HAL
+ENE_External_Device_HAL
+ENE_MousePad_HAL
+ENE_X_AIC_HAL
+Epic Games Launcher
+Epic Online Services
+FACEIT Anti-Cheat
+Fart Together Demo
+Foxit PDF Reader
+Google Chrome
+Goose Goose Duck
+Hamachi
+HP LaserJet Pro MFP M125-M126
+HP Product FWUpdater
+HP Unified IO
+Java 8 Update 491 (64-bit)
+Java Auto Updater
+K-Lite Mega Codec Pack 18.4.8
+Launcher Prerequisites (x64)
+Left! Left! LEFT! Playtest
+Microsoft Build of OpenJDK with Hotspot 17.0.8+7 (x64)
+Microsoft Edge
+Microsoft Office LTSC профессиональный плюс 2024 - ru-ru
+Microsoft Teams Meeting Add-in for Microsoft Office
+Microsoft Update Health Tools
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.50727.4053 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.50727.42 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.51011 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.56336 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.57102 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.58298 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.59192 False
+Microsoft Visual C++ 2005 Redistributable - x64 8.0.61000
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.50727.4053 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.50727.42 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.51011 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.56336 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.57103 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.58299 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.59193 False
+Microsoft Visual C++ 2005 Redistributable - x86 8.0.61001
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.21022 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.21022.0 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.21022.218 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30411 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.0 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.17 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.4048 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.4148 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.4148.0 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.5570 False
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.21022 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.21022.0 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.21022.218 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30411 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.0 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.17 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.4048 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.4148 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.4148.0 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.5570 False
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161
+Microsoft Visual C++ 2010 Redistributable - x64 10.0.40219
+Microsoft Visual C++ 2010 Redistributable - x86 10.0.40219
+Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030
+Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030 False Eng
+Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030
+Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030 False Eng
+Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.50727 False
+Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.51106 False
+Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.60610 False
+Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.61030
+Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.50727 False
+Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.51106 False
+Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.60610 False
+Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.61030
+Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.50727 False
+Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.51106 False
+Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.60610 False
+Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.61030
+Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.50727 False
+Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.51106 False
+Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.60610 False
+Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.61030
+Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501 False
+Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501 False Eng
+Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664
+Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664 False Eng
+Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.30501 False
+Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.30501 False Eng
+Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664
+Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664 False Eng
+Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.21005 False
+Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40649 False
+Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40660 False
+Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664
+Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.21005 False
+Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40649 False
+Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40660 False
+Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664
+Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.21005 False
+Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40649 False
+Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40660 False
+Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664
+Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.21005 False
+Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40649 False
+Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40660 False
+Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664
+Microsoft Visual C++ 2022 X64 Additional Runtime - 14.51.36247
+Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.51.36247
+Microsoft Visual C++ 2022 X86 Additional Runtime - 14.51.36247
+Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.51.36247
+Microsoft Visual C++ v14 Redistributable (x64) - 14.51.36247
+Microsoft Visual C++ v14 Redistributable (x86) - 14.51.36247
+Microsoft Windows Application Compatibility Fix Database
+Microsoft XNA Framework Redistributable 4.0
+My Game Long Name
+NMH Transport
+NvCpl
+NVIDIA AIUser Container
+NVIDIA App 11.0.5.420
+NVIDIA Backend
+NVIDIA Container
+NVIDIA FrameView SDK 1.5.11504.36206172
+NVIDIA Install Application
+NVIDIA LocalSystem Container
+NVIDIA MessageBus 3 for NvApp
+NVIDIA NvDLISR
+NVIDIA Session Container
+NVIDIA ShadowPlay 11.0.5.400
+NVIDIA Telemetry Client
+NVIDIA User Container
+NVIDIA Virtual Audio 4.65.0.3
+NVIDIA Watchdog Plugin for NvContainer
+NVIDIA Аудиодрайвер HD 1.4.5.7
+NVIDIA Графический драйвер 582.66
+NVIDIA Системное программное обеспечение PhysX 9.23.1019
+Office 16 Click-to-Run Extensibility Component
+Office 16 Click-to-Run Licensing Component
+Office 16 Click-to-Run Localization Component
+OpenAL
+OpenVPN 2.4.8-I602-Win10
+Patriot Viper M2 SSD RGB
+Portmaster
+PostGIS Bundle 3.6.2 for PostgreSQL x64 18 (remove only)
+PostgreSQL 18
+PostgreSQL 18 (64bit)
+psqlODBC 13.02.0000
+Radmin VPN 2.0.9
+Rainmeter
+REALTEK Wireless LAN Driver
+Red Shield VPN, версия 4.1.63
+RGB Fusion
+ROB RUN
+Saby
+Saby Center
+Soundpad
+Steam
+TAP-Windows 9.24.2
+Terraria
+TLauncher
+UE Prerequisites (x64)
+Update for x64-based Windows Systems (KB5001716)
+Viber
+VPNMaster 3.25.1.0 stable
+Wallpaper Engine
+WD P40 Game Drive
+ZET Fury 3327
+КриптоПро CSP
+КриптоПро ЭЦП Browser plug-in
+Плагин пользователя систем электронного правительства (версия 3.1.1.0) x64
+Проверка работоспособности ПК Windows
+Среда выполнения Microsoft Edge WebView2 Runtime
+
+Выполняется сверка списка программ с офисным эталоном…
+
+Проверка базового офисного ПО
+--------------------------------------------------
+Эталон покрывает документы, веб-сервисы, PDF, архивы и защиту рабочего места.
+Офисный пакет: требование выполнено. Microsoft Office LTSC профессиональный плюс 2024 - ru-ru
+Браузер: требование выполнено. Google Chrome; Microsoft Edge (компонент Windows)
+Чтение PDF: требование выполнено. Foxit PDF Reader
+Архиватор: требование выполнено. 7-Zip 24.09 (x64 edition)
+Антивирус: подходящая программа в списке не обнаружена. Проверьте состояние Microsoft Defender или наличие утверждённого организацией антивируса.
+
+ПО, требующее дополнительной проверки
+--------------------------------------------------
+Игры и игровые платформы: Epic Games Launcher; My Game Long Name; Steam; WD P40 Game Drive.
+  Рекомендация: Уточните, нужны ли игры и игровые платформы для рабочих задач.
+Торрент-клиенты и файлообмен: совпадений нет.
+Мессенджеры и личное общение: Viber.
+  Рекомендация: Сверьте приложения с перечнем утверждённых каналов связи.
+Развлечения и оформление: Soundpad; Wallpaper Engine.
+  Рекомендация: Уточните, нужны ли приложения для согласованных рабочих задач.
+
+Совпадения служат поводом для проверки. Решение о сохранении или удалении ПО принимает администратор.
+При проверке учитывайте согласованные исключения и специализированные задачи.
+Проверка логики: в тестовый список добавлен Steam; 7-Zip сначала присутствовал, затем был исключён.
+Итог: категорий базового ПО проверено — 5; рекомендаций выдано — 4.
+==================================================
+Путь к отчёту: C:\Users\Vlad\Documents\GitHub\lab-onboarding-Kharitonov\client-check\pc_report.txt
+Отчёт сохранён
